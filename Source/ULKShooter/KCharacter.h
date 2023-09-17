@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "KCharacter.generated.h"
 
+class USpringArmComponent;
+class UCameraComponent;
+
 UCLASS()
 class ULKSHOOTER_API AKCharacter : public ACharacter
 {
@@ -26,7 +29,15 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	//Feature1
+protected:
 
-	//Var
+	/* Camera Boom */
+	UPROPERTY(VisibleAnywhere)
+	USpringArmComponent* SpringArmComp;
+
+	/* Camera */
+	UPROPERTY(VisibleAnywhere)
+	UCameraComponent* CameraComp;
+
+
 };
