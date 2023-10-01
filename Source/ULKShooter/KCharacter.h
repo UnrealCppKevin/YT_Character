@@ -40,4 +40,11 @@ protected:
 	UCameraComponent* CameraComp;
 
 
+	/* Input */
+
+	void MoveForwardBackward(float value);
+	void MoveLeftRight(float value);
+	void TurnLeftRight(float value);
+	void TurnUpDown(float value);
+
 };
