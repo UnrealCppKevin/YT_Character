@@ -55,6 +55,13 @@ void AKCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	}
 
 
+
+	/* Action */
+	PlayerInputComponent->BindAction("FireLMB", IE_Pressed, this, &AKCharacter::FireLMB);
+
+
+	/* Axis */
+
 	PlayerInputComponent->BindAxis("MoveForwardBackward", this, &AKCharacter::MoveForwardBackward);
 	PlayerInputComponent->BindAxis("MoveLeftRight", this, &AKCharacter::MoveLeftRight);
 
@@ -111,3 +118,8 @@ void AKCharacter::TurnUpDown(float value)
 	AddControllerPitchInput(value);
 }
 
+void AKCharacter::FireLMB()
+{
+
+	UE_LOG(LogTemp, Warning, TEXT("FireLMB()"))
+}

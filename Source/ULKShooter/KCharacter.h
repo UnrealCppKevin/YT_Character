@@ -47,4 +47,6 @@ protected:
 	void TurnLeftRight(float value);
 	void TurnUpDown(float value);
 
+	/* Weapon */
+	void FireLMB();
 };
