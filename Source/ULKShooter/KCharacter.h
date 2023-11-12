@@ -56,4 +56,11 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category ="Combat")
 	class UParticleSystem* MuzzleFlash;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category ="Combat")
+	class UParticleSystem* ImpactEffect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category ="Combat")
+	class UParticleSystem* BeamParticles;
+
 };

@@ -12,6 +12,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
 #include "Engine/SkeletalMeshSocket.h"
+#include "Particles/ParticleSystemComponent.h"
+
 
 // Sets default values
 AKCharacter::AKCharacter()
@@ -159,11 +161,49 @@ void AKCharacter::FireLMB()
 		GetWorld()->LineTraceSingleByChannel(HitRst, Start, End, ECollisionChannel::ECC_Visibility);
 
 
+// 		if (HitRst.bBlockingHit)
+// 		{
+// 			DrawDebugLine(GetWorld(), Start, End, FColor::Red, 0, 2);
+// 			DrawDebugSphere(GetWorld(), HitRst.Location, 10, 10, FColor::Blue, 0, 2);
+// 		}
+
+
+		//Impact Effect
+
 		if (HitRst.bBlockingHit)
 		{
-			DrawDebugLine(GetWorld(), Start, End, FColor::Red, 0, 2);
-			DrawDebugSphere(GetWorld(), HitRst.Location, 10, 10, FColor::Blue, 0, 2);
+			if (ImpactEffect)
+			{
+				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, HitRst.Location);
+
+			}
 		}
+
+
+		//Beam/Trace Effect
+		if (BeamParticles)
+		{
+
+			UParticleSystemComponent* Beam = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), BeamParticles, SocketTransform);
+
+			//For Beam
+			FVector BeamEndPoint{ End };
+
+			if (HitRst.bBlockingHit)
+			{
+				BeamEndPoint = HitRst.Location;
+			}
+
+
+			if (Beam)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Beam->SetVectorParameter()"))
+				Beam->SetVectorParameter(FName("Target"), BeamEndPoint);
+
+			}
+
+		}
+
 
 	}
 
