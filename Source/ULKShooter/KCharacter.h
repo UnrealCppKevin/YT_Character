@@ -49,4 +49,8 @@ protected:
 
 	/* Weapon */
 	void FireLMB();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category ="Combat")
+	class USoundCue* FireSoundEffect;
+
 };

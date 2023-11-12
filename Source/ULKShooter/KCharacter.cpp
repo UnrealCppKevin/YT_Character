@@ -8,6 +8,9 @@
 
 #include "DrawDebugHelpers.h"
 
+#include "Sound/SoundCue.h"
+#include "Kismet/GameplayStatics.h"
+
 // Sets default values
 AKCharacter::AKCharacter()
 {
@@ -122,4 +125,10 @@ void AKCharacter::FireLMB()
 {
 
 	UE_LOG(LogTemp, Warning, TEXT("FireLMB()"))
+
+
+	if (FireSoundEffect)
+	{
+		UGameplayStatics::PlaySound2D(this, FireSoundEffect);
+	}
 }
