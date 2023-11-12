@@ -53,4 +53,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category ="Combat")
 	class USoundCue* FireSoundEffect;
 
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category ="Combat")
+	class UParticleSystem* MuzzleFlash;
 };

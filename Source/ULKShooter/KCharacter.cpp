@@ -10,6 +10,8 @@
 
 #include "Sound/SoundCue.h"
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystem.h"
+#include "Engine/SkeletalMeshSocket.h"
 
 // Sets default values
 AKCharacter::AKCharacter()
@@ -131,4 +133,41 @@ void AKCharacter::FireLMB()
 	{
 		UGameplayStatics::PlaySound2D(this, FireSoundEffect);
 	}
+
+
+	const USkeletalMeshSocket* GunBarrelSocket = GetMesh()->GetSocketByName("GunBarrelSocket");
+	if (GunBarrelSocket)
+	{
+
+		const FTransform SocketTransform = GunBarrelSocket->GetSocketTransform(GetMesh());
+
+		if (MuzzleFlash)
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), MuzzleFlash, SocketTransform);
+		}
+
+
+
+		//Line Trace Hit
+		FHitResult HitRst;
+
+		const FVector Start{ SocketTransform.GetLocation() };
+		const FQuat StartRotation{ SocketTransform.GetRotation() };
+		const FVector RotationAxis{ StartRotation.GetAxisX() };
+		const FVector End{ Start + RotationAxis * 500000.f };
+
+		GetWorld()->LineTraceSingleByChannel(HitRst, Start, End, ECollisionChannel::ECC_Visibility);
+
+
+		if (HitRst.bBlockingHit)
+		{
+			DrawDebugLine(GetWorld(), Start, End, FColor::Red, 0, 2);
+			DrawDebugSphere(GetWorld(), HitRst.Location, 10, 10, FColor::Blue, 0, 2);
+		}
+
+	}
+
+
+
+
 }
